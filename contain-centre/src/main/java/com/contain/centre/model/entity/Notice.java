@@ -1,4 +1,4 @@
-package com.user.centre.model.entity;
+package com.contain.centre.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 积分变更记录表
+ *
  * </p>
  *
  * @author novLi
@@ -25,30 +25,24 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "bonus_event_log")
-@ApiModel(value="BonusEventLog对象", description="积分变更记录表")
-public class BonusEventLog implements Serializable {
+@TableName(value = "notice")
+@ApiModel(value="Notice对象", description="")
+public class Notice implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "Id")
+    @ApiModelProperty(value = "id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "user.id")
-    private Integer userId;
+    @ApiModelProperty(value = "内容")
+    private String content;
 
-    @ApiModelProperty(value = "积分操作值")
-    private Integer value;
-
-    @ApiModelProperty(value = "发生的事件")
-    private String event;
+    @ApiModelProperty(value = "是否显示 0:否 1:是")
+    private Boolean showFlag;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "描述")
-    private String description;
 
 
 }

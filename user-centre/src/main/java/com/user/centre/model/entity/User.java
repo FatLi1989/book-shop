@@ -1,198 +1,60 @@
 package com.user.centre.model.entity;
 
-import java.util.Date;
-import javax.persistence.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
+import lombok.experimental.Accessors;
 
-@Table(name = "user")
-public class User {
-    /**
-     * Id
-     */
-    @Id
-    @GeneratedValue(generator = "JDBC")
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+/**
+ * <p>
+ * 分享
+ * </p>
+ *
+ * @author novLi
+ * @since 2019-12-31
+ */
+@Setter
+@Getter
+@Builder
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@TableName(value = "user")
+@ApiModel(value="User对象", description="分享")
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty(value = "Id")
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * 微信id
-     */
-    @Column(name = "wx_id")
+    @ApiModelProperty(value = "微信id")
     private String wxId;
 
-    /**
-     * 微信昵称
-     */
-    @Column(name = "wx_nickname")
+    @ApiModelProperty(value = "微信昵称")
     private String wxNickname;
 
-    /**
-     * 角色
-     */
+    @ApiModelProperty(value = "角色")
     private String roles;
 
-    /**
-     * 头像地址
-     */
-    @Column(name = "avatar_url")
+    @ApiModelProperty(value = "头像地址")
     private String avatarUrl;
 
-    /**
-     * 创建时间
-     */
-    @Column(name = "create_time")
-    private Date createTime;
+    @ApiModelProperty(value = "创建时间")
+    private LocalDateTime createTime;
 
-    /**
-     * 修改时间
-     */
-    @Column(name = "update_time")
-    private Date updateTime;
+    @ApiModelProperty(value = "修改时间")
+    private LocalDateTime updateTime;
 
-    /**
-     * 积分
-     */
+    @ApiModelProperty(value = "积分")
     private Integer bonus;
 
-    /**
-     * 获取Id
-     *
-     * @return id - Id
-     */
-    public Integer getId() {
-        return id;
-    }
 
-    /**
-     * 设置Id
-     *
-     * @param id Id
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
-     * 获取微信id
-     *
-     * @return wx_id - 微信id
-     */
-    public String getWxId() {
-        return wxId;
-    }
-
-    /**
-     * 设置微信id
-     *
-     * @param wxId 微信id
-     */
-    public void setWxId(String wxId) {
-        this.wxId = wxId == null ? null : wxId.trim();
-    }
-
-    /**
-     * 获取微信昵称
-     *
-     * @return wx_nickname - 微信昵称
-     */
-    public String getWxNickname() {
-        return wxNickname;
-    }
-
-    /**
-     * 设置微信昵称
-     *
-     * @param wxNickname 微信昵称
-     */
-    public void setWxNickname(String wxNickname) {
-        this.wxNickname = wxNickname == null ? null : wxNickname.trim();
-    }
-
-    /**
-     * 获取角色
-     *
-     * @return roles - 角色
-     */
-    public String getRoles() {
-        return roles;
-    }
-
-    /**
-     * 设置角色
-     *
-     * @param roles 角色
-     */
-    public void setRoles(String roles) {
-        this.roles = roles == null ? null : roles.trim();
-    }
-
-    /**
-     * 获取头像地址
-     *
-     * @return avatar_url - 头像地址
-     */
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    /**
-     * 设置头像地址
-     *
-     * @param avatarUrl 头像地址
-     */
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
-    }
-
-    /**
-     * 获取创建时间
-     *
-     * @return create_time - 创建时间
-     */
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    /**
-     * 设置创建时间
-     *
-     * @param createTime 创建时间
-     */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    /**
-     * 获取修改时间
-     *
-     * @return update_time - 修改时间
-     */
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    /**
-     * 设置修改时间
-     *
-     * @param updateTime 修改时间
-     */
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    /**
-     * 获取积分
-     *
-     * @return bonus - 积分
-     */
-    public Integer getBonus() {
-        return bonus;
-    }
-
-    /**
-     * 设置积分
-     *
-     * @param bonus 积分
-     */
-    public void setBonus(Integer bonus) {
-        this.bonus = bonus;
-    }
 }

@@ -1,4 +1,4 @@
-package com.user.centre.model.entity;
+package com.contain.centre.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,11 +9,11 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+
 
 /**
  * <p>
- * 积分变更记录表
+ * 用户-分享中间表【描述用户购买的分享】
  * </p>
  *
  * @author novLi
@@ -25,30 +25,20 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "bonus_event_log")
-@ApiModel(value="BonusEventLog对象", description="积分变更记录表")
-public class BonusEventLog implements Serializable {
+@TableName(value = "mid_user_share")
+@ApiModel(value="MidUserShare对象", description="用户-分享中间表【描述用户购买的分享】")
+public class MidUserShare implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "Id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @ApiModelProperty(value = "share.id")
+    private Integer shareId;
+
     @ApiModelProperty(value = "user.id")
     private Integer userId;
-
-    @ApiModelProperty(value = "积分操作值")
-    private Integer value;
-
-    @ApiModelProperty(value = "发生的事件")
-    private String event;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "描述")
-    private String description;
 
 
 }
