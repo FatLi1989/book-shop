@@ -14,6 +14,8 @@ server:
 #
 ############################################################
 spring:
+  application:
+    name: contain-centre
   datasource: # 数据源的相关配置
     type: com.zaxxer.hikari.HikariDataSource            # 数据源类型：HikariCP
     driver-class-name: com.mysql.jdbc.Driver            # mysql驱动
@@ -29,7 +31,15 @@ spring:
       pool-name: DateSourceHikariCP      # 连接池名字
       max-lifetime: 1800000              # 连接的生命时长（毫秒），超时而且没被使用则被释放（retired），默认:30分钟
       connection-test-query: SELECT 1
-
+############################################################
+#
+# 配置nacos服务配置中心
+#
+############################################################
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.89.45.226:8848         # 指定nacos server的地址
 # 这里注意如果启动类中加了扫包注解@MapperScan， 这里可不要下面这个配置
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
