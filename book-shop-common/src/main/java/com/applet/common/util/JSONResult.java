@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author novLi
  * @date 2019年12月20日 14:25
  */
-public class JSONResult {
+public class JSONResult<T> {
 
     /**
      * 定义jackson对象
@@ -27,7 +27,7 @@ public class JSONResult {
     /**
      * 响应中的数据
      **/
-    private Object data;
+    private T data;
 
     /**
      * 不使用
@@ -75,20 +75,20 @@ public class JSONResult {
 
     }
 
-    public JSONResult(Integer status, String msg, Object data) {
+    public JSONResult(Integer status, String msg, T data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
     }
 
-    public JSONResult(Integer status, String msg, Object data, String ok) {
+    public JSONResult(Integer status, String msg, T data, String ok) {
         this.status = status;
         this.msg = msg;
         this.data = data;
         this.ok = ok;
     }
 
-    public JSONResult(Object data) {
+    public JSONResult(T data) {
         this.status = 200;
         this.msg = "OK";
         this.data = data;
@@ -114,11 +114,11 @@ public class JSONResult {
         this.msg = msg;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 

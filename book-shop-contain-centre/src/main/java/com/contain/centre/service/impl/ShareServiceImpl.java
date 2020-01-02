@@ -38,8 +38,9 @@ public class ShareServiceImpl implements ShareService {
 
         BeanUtils.copyProperties(share, shareDTO);
         if (ObjectUtil.isNotNull(share.getUserId())) {
-           UserDTO userDTO = userCentreFeignClient.findById(share.getUserId());
-            if (ObjectUtil.isNotNull(userDTO)) {
+            JSONResult<UserDTO> result = userCentreFeignClient.findById(share.getUserId());
+            if (ObjectUtil.isNotNull(result.getData())) {
+                UserDTO userDTO = result.getData();
                 shareDTO.setWxNickname(userDTO.getWxNickname());
             }
         }

@@ -2,6 +2,8 @@ package com.contain.centre.controller;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.applet.common.util.JSONResult;
+import com.baomidou.mybatisplus.extension.api.R;
+import com.contain.centre.feignclient.SendRequestByUrlFeignClient;
 import com.contain.centre.model.dto.share.ShareDTO;
 import com.contain.centre.service.ShareService;
 import io.swagger.annotations.Api;
@@ -20,6 +22,9 @@ public class ShareController {
     @Autowired
     private ShareService shareService;
 
+    @Autowired
+    private SendRequestByUrlFeignClient sendRequestByUrlFeignClient;
+
     @ApiOperation(value = "根据id查询分享详情", notes = "根据id查询分享详情")
     @GetMapping("/{id}")
     public JSONResult findById(@PathVariable Integer id) {
@@ -28,6 +33,16 @@ public class ShareController {
         }
         return JSONResult.ok(shareService.findById(id));
     }
+
+    @ApiOperation(value = "查询百度", notes = "查询百度")
+    @GetMapping("/baidu")
+    public String skipToBaidu() {
+       return sendRequestByUrlFeignClient.index();
+    }
+
+
+
+
 
 
 }

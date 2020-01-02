@@ -1,6 +1,7 @@
 package com.user.centre.controller;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.applet.common.util.JSONResult;
 import com.user.centre.model.entity.User;
 import com.user.centre.serivce.UserService;
@@ -27,8 +28,11 @@ public class UserController {
 
     @ApiOperation(value = "用户是否存在", notes = "用户是否存在")
     @GetMapping("/{id}")
-    public User findById(@PathVariable Integer id) {
-        return userService.findById(id);
+    public JSONResult findById(@PathVariable Integer id) {
+        if (ObjectUtil.isNull(id)) {
+            return JSONResult.errorMsg("用户标识不可以为空");
+        }
+        return JSONResult.ok(userService.findById(id));
     }
 
 

@@ -48,6 +48,4 @@ mybatis-plus:
 
 logging:
   level:
-    com:
-      wallet:
-        mapper: debug
+    com.user.centre.mapper: debug
