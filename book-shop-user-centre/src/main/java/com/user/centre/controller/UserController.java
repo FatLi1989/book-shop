@@ -22,20 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController {
 
-
     @Autowired
     private UserService userService;
 
-
     @ApiOperation(value = "用户是否存在", notes = "用户是否存在")
     @GetMapping("/{id}")
-    public JSONResult findById(@PathVariable Integer id) {
-
-        if (ObjectUtil.isNull(id)) {
-            return JSONResult.errorMsg("用户标识不可以为空");
-        }
-        User user = userService.findById(id);
-        return JSONResult.ok(user);
+    public User findById(@PathVariable Integer id) {
+        return userService.findById(id);
     }
 
 
