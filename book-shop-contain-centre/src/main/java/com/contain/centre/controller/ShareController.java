@@ -1,10 +1,13 @@
 package com.contain.centre.controller;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.applet.common.util.JSONResult;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.contain.centre.feignclient.SendRequestByUrlFeignClient;
 import com.contain.centre.model.dto.share.ShareDTO;
+import com.contain.centre.sentinel.block.ShareIdBlockHandler;
 import com.contain.centre.service.ShareService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +30,7 @@ public class ShareController {
 
     @ApiOperation(value = "根据id查询分享详情", notes = "根据id查询分享详情")
     @GetMapping("/{id}")
+    @SentinelResource(value = "query-share-byId", blockHandler = "block", fallback = "fallback")
     public JSONResult findById(@PathVariable Integer id) {
         if (ObjectUtil.isNull(id)) {
             return JSONResult.errorMsg("分享id不可以为空");
@@ -40,7 +44,12 @@ public class ShareController {
        return sendRequestByUrlFeignClient.index();
     }
 
-
+    public static JSONResult block (Integer id, BlockException e) {
+        return JSONResult.errorMsg("限流了");
+    }
+    public static JSONResult fallback (Integer id) {
+        return JSONResult.errorMsg("降级了");
+    }
 
 
 

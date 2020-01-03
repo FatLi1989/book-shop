@@ -41,9 +41,15 @@ spring:
       discovery:
         server-addr: 47.89.45.226:8848         # 指定nacos server的地址
     sentinel:
+      filter:
+      # 打开/关闭掉对Spring MVC端点的保护 false 为关闭 true 为打开
+        enabled: false
       transport:
-        dashboard: localhost:9000
-      eager: true                              # 禁用懒加载
+        dashboard: localhost:9000           #指定控制台地址
+        client-ip: 127.0.0.1                #指定和控制台通信IP
+        port: 9999                          #指定和控制台通信端口,默认值8719,如果不设置,会自动从8719开始扫描,依次+1,直到找到未被占用的端口
+        heartbeat-interval-ms: 10000        #心跳发送周期,默认值null, 但在SimpleHttpHeartbeatSender会默认值10秒
+      eager: true                           # 禁用懒加载
 # 这里注意如果启动类中加了扫包注解@MapperScan， 这里可不要下面这个配置
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
@@ -58,6 +64,9 @@ logging:
 #
 ############################################################
 feign:
+  sentinel:
+    # 为feign整合sentinel
+    enabled: true
   client:
     config:
       # 指定单个服务名称-> user-centre   全局配置feign日志-> default
