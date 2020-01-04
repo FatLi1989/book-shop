@@ -34,7 +34,7 @@ public class MidUserShare implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "share.id")
+    @ApiModelProperty(value = "content.id")
     private Integer shareId;
 
     @ApiModelProperty(value = "user.id")

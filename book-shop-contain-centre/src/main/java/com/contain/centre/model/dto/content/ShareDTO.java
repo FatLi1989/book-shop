@@ -1,4 +1,4 @@
-package com.contain.centre.model.dto.share;
+package com.contain.centre.model.dto.content;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
