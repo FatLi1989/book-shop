@@ -24,8 +24,7 @@ public class ShareAdminController {
     @ApiOperation(value = "根据id查询分享详情", notes = "根据id查询分享详情")
     @PutMapping("/audit/{id}")
     public JSONResult auditById(@PathVariable Integer id, @RequestBody ShareAuditDTO auditDTO) {
-        this.shareService.auditById(id, auditDTO);
-        return JSONResult.ok("结果");
+        return JSONResult.ok(shareService.auditById(id, auditDTO));
     }
 
 }

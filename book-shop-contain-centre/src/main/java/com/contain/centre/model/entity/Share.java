@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "content")
+@TableName(value = "share")
 @ApiModel(value="Share对象", description="分享表")
 public class Share implements Serializable {
 

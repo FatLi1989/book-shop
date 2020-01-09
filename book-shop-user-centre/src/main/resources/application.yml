@@ -39,7 +39,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 47.89.45.226:8848         # 指定nacos server的地址
+        server-addr: 47.56.112.40:8848         # 指定nacos server的地址
 
 # 这里注意如果启动类中加了扫包注解@MapperScan， 这里可不要下面这个配置
 mybatis-plus:
@@ -49,3 +49,6 @@ mybatis-plus:
 logging:
   level:
     com.user.centre.mapper: debug
+
+rocketmq:
+  name-server: 47.56.112.40:9876

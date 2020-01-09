@@ -44,6 +44,7 @@ public class ShareController {
     public static JSONResult block (Integer id, BlockException e) {
         return JSONResult.errorMsg("限流了");
     }
+
     public static JSONResult fallback (Integer id) {
         return JSONResult.errorMsg("降级了");
     }

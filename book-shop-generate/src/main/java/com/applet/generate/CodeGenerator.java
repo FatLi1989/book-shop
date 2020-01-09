@@ -53,7 +53,7 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://106.12.137.47:3306/user_center?useUnicode=true&characterEncoding=UTF-8&autoReconnect");
+        dsc.setUrl("jdbc:mysql://106.12.137.47:3306/content_center?useUnicode=true&characterEncoding=UTF-8&autoReconnect");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("lyp19891117");
