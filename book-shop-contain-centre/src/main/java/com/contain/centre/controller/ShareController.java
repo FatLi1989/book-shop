@@ -8,6 +8,7 @@ import com.contain.centre.feignclient.SendRequestByUrlFeignClient;
 import com.contain.centre.service.ShareService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,13 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "分享信息", tags = {"分享信息"})
 @RestController
 @RequestMapping("/shares")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ShareController {
 
-    @Autowired
-    private ShareService shareService;
+    private final ShareService shareService;
 
-    @Autowired
-    private SendRequestByUrlFeignClient sendRequestByUrlFeignClient;
+    private final SendRequestByUrlFeignClient sendRequestByUrlFeignClient;
 
     @ApiOperation(value = "根据id查询分享详情", notes = "根据id查询分享详情")
     @GetMapping("/{id}")
@@ -38,18 +38,16 @@ public class ShareController {
     @ApiOperation(value = "查询百度", notes = "查询百度")
     @GetMapping("/baidu")
     public String skipToBaidu() {
-       return sendRequestByUrlFeignClient.index();
+        return sendRequestByUrlFeignClient.index();
     }
 
-    public static JSONResult block (Integer id, BlockException e) {
+    public static JSONResult block(Integer id, BlockException e) {
         return JSONResult.errorMsg("限流了");
     }
 
-    public static JSONResult fallback (Integer id) {
+    public static JSONResult fallback(Integer id) {
         return JSONResult.errorMsg("降级了");
     }
-
-
 
 
 }

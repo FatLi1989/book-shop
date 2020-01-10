@@ -6,6 +6,7 @@ import com.user.centre.model.dto.messaging.UserAddBonusMsgDTO;
 import com.user.centre.model.entity.BonusEventLog;
 import com.user.centre.model.entity.User;
 import com.user.centre.serivce.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,14 +22,13 @@ import java.util.Date;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
 
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
-    @Autowired
-    private BonusEventLogMapper bonusEventLogMapper;
+    private final BonusEventLogMapper bonusEventLogMapper;
 
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
     @Override

@@ -15,16 +15,19 @@ import com.contain.centre.model.dto.user.UserDTO;
 import com.contain.centre.model.entity.RocketMqTransactionLog;
 import com.contain.centre.model.entity.Share;
 import com.contain.centre.service.ShareService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.apache.rocketmq.spring.support.RocketMQHeaders;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  * @author novLi
@@ -32,19 +35,18 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ShareServiceImpl implements ShareService {
 
-    @Autowired
-    private RocketMQTemplate rocketMQTemplate;
+    private final RocketMQTemplate rocketMQTemplate;
 
-    @Autowired
-    private UserCentreFeignClient userCentreFeignClient;
+    private final UserCentreFeignClient userCentreFeignClient;
 
-    @Autowired
-    private ShareMapper shareMapper;
+    private final ShareMapper shareMapper;
 
-    @Autowired
-    private RocketMqTransactionLogMapper rocketmqTransactionLogMapper;
+    private final RocketMqTransactionLogMapper rocketmqTransactionLogMapper;
+
+    private final Source source;
 
     /**
      * 使用id查询分享内容
@@ -68,6 +70,7 @@ public class ShareServiceImpl implements ShareService {
         }
         return shareDTO;
     }
+
     /**
      * 审批分享内容
      *
@@ -87,15 +90,35 @@ public class ShareServiceImpl implements ShareService {
         // 3. 如果是PASS，那么发送消息给rocketmq，让用户中心去消费，并为发布人添加积分
         if (AuditStatusEnum.PASS.equals(auditDTO.getAuditStatusEnum())) {
             log.info("---------------添加用户积分消息发送中---------------");
-            // 发送正常消息
+            //发送正常消息
             /*sendNormalMessage(share);*/
             //发送事务消息
             sendTransactionMessage(share, auditDTO);
+            //通过stream发送消息
+            /*sendMessageWhitStream(share);*/
         } else {
             this.auditByIdInDB(id, auditDTO);
         }
         return share;
     }
+
+    /**
+     * 通过stream来发送消息
+     *
+     * @author Liyanpeng
+     * @date 2020/1/9 15:57
+     **/
+    private void sendMessageWhitStream(Share share) {
+        this.source.output().send(MessageBuilder
+                .withPayload(UserAddBonusMsgDTO
+                        .builder()
+                        .userId(share.getUserId())
+                        .bonus(50)
+                        .build())
+                .build());
+
+    }
+
     /**
      * 审批并修改数据库状态,同时保存事务日志
      *
@@ -115,6 +138,7 @@ public class ShareServiceImpl implements ShareService {
                         .build()
         );
     }
+
     /**
      * 审批并修改数据库状态
      *
@@ -130,6 +154,7 @@ public class ShareServiceImpl implements ShareService {
                 .build();
         this.shareMapper.updateById(share);
     }
+
     /**
      * 发送事务消息
      *
@@ -148,6 +173,7 @@ public class ShareServiceImpl implements ShareService {
                         .build(),
                 auditDTO);
     }
+
     /**
      * 发送普通消息
      *
