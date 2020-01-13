@@ -27,6 +27,7 @@ spring:
 logging:
   level:
     com.alibaba.nacos: error
+    org.springframework.cloud.gateway: trace
 ############################################################
 #
 # 配置端点信息
@@ -36,7 +37,8 @@ management:
   endpoints:
     web:
       exposure:
-        include: gateway
+        include: '*'
   endpoint:
     health:
       show-details: always
+

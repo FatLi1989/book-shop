@@ -1,18 +1,18 @@
 package com.user.centre.controller;
 
+import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import com.applet.common.util.JSONResult;
-import com.user.centre.model.entity.User;
+import com.user.centre.model.dto.user.LoginRespDTO;
+import com.user.centre.model.dto.user.UserLoginDTO;
 import com.user.centre.serivce.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author novLi
@@ -27,6 +27,8 @@ public class UserController {
 
     private final UserService userService;
 
+    private final WxMaService wxMaService;
+
     @ApiOperation(value = "用户是否存在", notes = "用户是否存在")
     @GetMapping("/{id}")
     public JSONResult findById(@PathVariable Integer id) {
@@ -36,5 +38,14 @@ public class UserController {
         return JSONResult.ok(userService.findById(id));
     }
 
+   /* @ApiOperation(value = "用户登录", notes = "用户登录")
+    @PostMapping("/login")
+    public LoginRespDTO login(@RequestBody UserLoginDTO loginDTO) throws WxErrorException {
+        WxMaJscode2SessionResult result = this.wxMaService.getUserService()
+                .getSessionInfo(loginDTO.getCode());
+
+        // 微信的openId，用户在微信这边的唯一标示
+        String openid = result.getOpenid();
+    }*/
 
 }
