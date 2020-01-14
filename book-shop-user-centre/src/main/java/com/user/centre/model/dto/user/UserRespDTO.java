@@ -13,7 +13,7 @@ public class UserRespDTO {
     /**
      * id
      */
-    private Integer id;
+    private String id;
     /**
      * 头像地址
      */

@@ -217,7 +217,11 @@
             <artifactId>weixin-java-miniapp</artifactId>
             <version>3.5.0</version>
         </dependency>
-
+        <!-- 引入aop -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

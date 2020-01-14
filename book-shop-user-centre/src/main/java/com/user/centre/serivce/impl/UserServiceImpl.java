@@ -1,8 +1,12 @@
 package com.user.centre.serivce.impl;
 
+import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.user.centre.mapper.BonusEventLogMapper;
 import com.user.centre.mapper.UserMapper;
 import com.user.centre.model.dto.messaging.UserAddBonusMsgDTO;
+import com.user.centre.model.dto.user.UserLoginDTO;
 import com.user.centre.model.entity.BonusEventLog;
 import com.user.centre.model.entity.User;
 import com.user.centre.serivce.UserService;
@@ -59,5 +63,28 @@ public class UserServiceImpl implements UserService {
         );
         log.info("积分添加完毕...");
 
+    }
+
+    @Override
+    public User login(UserLoginDTO loginDTO, String openId) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("wx_id", openId);
+        User user = this.userMapper.selectOne(queryWrapper);
+
+        if (ObjectUtil.isNull(user)) {
+            User userToSave = User.builder()
+                    .id(IdWorker.getIdStr())
+                    .wxId(openId)
+                    .bonus(300)
+                    .wxNickname(loginDTO.getWxNickname())
+                    .avatarUrl(loginDTO.getAvatarUrl())
+                    .roles("user")
+                    .createTime(new Date())
+                    .updateTime(new Date())
+                    .build();
+            this.userMapper.insert(userToSave);
+            return userToSave;
+        }
+        return user;
     }
 }
