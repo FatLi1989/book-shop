@@ -18,7 +18,7 @@ public class UserCentreFeignClientFallbackFactory implements FallbackFactory<Use
     public UserCentreFeignClient create(Throwable throwable) {
         return new UserCentreFeignClient() {
             @Override
-            public JSONResult<UserDTO> findById(Integer id) {
+            public JSONResult<UserDTO> findById(Integer id, String token) {
                 UserDTO userDTO = new UserDTO();
                 userDTO.setWxNickname("nickName");
                 return JSONResult.ok(userDTO);

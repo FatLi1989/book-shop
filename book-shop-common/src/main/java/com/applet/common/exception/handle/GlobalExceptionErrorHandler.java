@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionErrorHandler {
 
-
     @ExceptionHandler(SecurityException.class)
     public ResponseEntity<ErrorBody> error(SecurityException e) {
         log.warn("发生SecurityException异常", e);

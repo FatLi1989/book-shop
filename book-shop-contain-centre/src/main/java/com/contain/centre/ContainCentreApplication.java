@@ -12,7 +12,7 @@ import org.springframework.cloud.stream.messaging.Source;
 @EnableFeignClients
 @EnableDiscoveryClient
 @MapperScan(basePackages = {"com.contain.centre.mapper"})
-@SpringBootApplication(scanBasePackages = {"com.contain.centre"})
+@SpringBootApplication(scanBasePackages = {"com.contain.centre", "com.applet.common"})
 public class ContainCentreApplication {
 
     public static void main(String[] args) {

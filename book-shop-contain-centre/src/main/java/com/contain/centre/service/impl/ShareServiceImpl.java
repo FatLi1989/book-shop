@@ -55,14 +55,14 @@ public class ShareServiceImpl implements ShareService {
      * @date 2020/1/9 15:57
      **/
     @Override
-    public ShareDTO findById(Integer id) {
+    public ShareDTO findById(Integer id, String token) {
         Share share = shareMapper.selectById(id);
 
         ShareDTO shareDTO = new ShareDTO();
 
         BeanUtils.copyProperties(share, shareDTO);
         if (ObjectUtil.isNotNull(share.getUserId())) {
-            JSONResult<UserDTO> result = userCentreFeignClient.findById(share.getUserId());
+            JSONResult<UserDTO> result = userCentreFeignClient.findById(share.getUserId(), token);
             if (ObjectUtil.isNotNull(result.getData())) {
                 UserDTO userDTO = result.getData();
                 shareDTO.setWxNickname(userDTO.getWxNickname());

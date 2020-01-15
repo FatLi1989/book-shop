@@ -10,10 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(value = "分享信息", tags = {"分享信息"})
 @RestController
@@ -28,11 +25,11 @@ public class ShareController {
     @ApiOperation(value = "根据id查询分享详情", notes = "根据id查询分享详情")
     @GetMapping("/{id}")
     @SentinelResource(value = "query-content-byId", blockHandler = "block", fallback = "fallback")
-    public JSONResult findById(@PathVariable Integer id) {
+    public JSONResult findById(@PathVariable Integer id, @RequestHeader("X-Token") String token) {
         if (ObjectUtil.isNull(id)) {
             return JSONResult.errorMsg("分享id不可以为空");
         }
-        return JSONResult.ok(shareService.findById(id));
+        return JSONResult.ok(shareService.findById(id, token));
     }
 
     @ApiOperation(value = "查询百度", notes = "查询百度")
