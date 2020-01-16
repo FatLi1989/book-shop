@@ -14,6 +14,6 @@ public interface UserCentreFeignClient {
      * http://user-center/users/{id}
      */
     @GetMapping("/users/{id}")
-    JSONResult<UserDTO> findById(@PathVariable Integer id, @RequestHeader("X-Token") String token);
+    JSONResult<UserDTO> findById(@PathVariable Integer id);
 
 }

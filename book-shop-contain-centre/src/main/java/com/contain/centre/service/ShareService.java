@@ -6,7 +6,7 @@ import com.contain.centre.model.entity.Share;
 
 public interface ShareService {
 
-    ShareDTO findById(Integer id, String token);
+    ShareDTO findById(Integer id);
 
     Share auditById(Integer id, ShareAuditDTO auditDTO);
 

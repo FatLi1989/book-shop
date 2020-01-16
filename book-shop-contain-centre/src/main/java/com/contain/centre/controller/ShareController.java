@@ -25,11 +25,11 @@ public class ShareController {
     @ApiOperation(value = "根据id查询分享详情", notes = "根据id查询分享详情")
     @GetMapping("/{id}")
     @SentinelResource(value = "query-content-byId", blockHandler = "block", fallback = "fallback")
-    public JSONResult findById(@PathVariable Integer id, @RequestHeader("X-Token") String token) {
+    public JSONResult findById(@PathVariable Integer id) {
         if (ObjectUtil.isNull(id)) {
             return JSONResult.errorMsg("分享id不可以为空");
         }
-        return JSONResult.ok(shareService.findById(id, token));
+        return JSONResult.ok(shareService.findById(id));
     }
 
     @ApiOperation(value = "查询百度", notes = "查询百度")

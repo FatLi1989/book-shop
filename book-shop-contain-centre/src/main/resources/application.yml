@@ -85,6 +85,8 @@ feign:
       default:
         # full 全部级别生产时禁止使用(feign性能优化)
         loggerLevel: full
+        requestInterceptors:
+          - com.contain.centre.interceptor.TokenRelayInterceptor
   httpclient:
     # 让feign使用apache httpclient做请求；而不是默认的urlC onnection
     enabled: true
