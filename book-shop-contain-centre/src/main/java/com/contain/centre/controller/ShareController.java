@@ -3,6 +3,7 @@ package com.contain.centre.controller;
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.applet.common.auth.CheckAuthorization;
 import com.applet.common.util.JSONResult;
 import com.contain.centre.feignclient.SendRequestByUrlFeignClient;
 import com.contain.centre.service.ShareService;
@@ -24,6 +25,7 @@ public class ShareController {
 
     @ApiOperation(value = "根据id查询分享详情", notes = "根据id查询分享详情")
     @GetMapping("/{id}")
+    @CheckAuthorization("admin")
     @SentinelResource(value = "query-content-byId", blockHandler = "block", fallback = "fallback")
     public JSONResult findById(@PathVariable Integer id) {
         if (ObjectUtil.isNull(id)) {
@@ -45,6 +47,4 @@ public class ShareController {
     public static JSONResult fallback(Integer id) {
         return JSONResult.errorMsg("降级了");
     }
-
-
 }
