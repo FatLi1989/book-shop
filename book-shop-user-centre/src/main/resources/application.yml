@@ -49,6 +49,6 @@ mybatis-plus:
 logging:
   level:
     com.user.centre.mapper: debug
-
+    com.alibaba.nacos: error
 rocketmq:
   name-server: 47.56.112.40:9876

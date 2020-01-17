@@ -20,11 +20,11 @@ spring:
 #         filters:
 #           - PreLog=a,b
         - id: user_route
-          uri: lb://user-center
+          uri: lb://user-centre
           predicates:
             - Path=/users/**
         - id: content_route
-          uri: lb://content-center
+          uri: lb://contain-centre
           predicates:
             - Path=/shares/**,/admin/**
 ############################################################

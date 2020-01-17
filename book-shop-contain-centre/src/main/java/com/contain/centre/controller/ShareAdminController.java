@@ -26,5 +26,4 @@ public class ShareAdminController {
     public JSONResult auditById(@PathVariable Integer id, @RequestBody ShareAuditDTO auditDTO) {
         return JSONResult.ok(shareService.auditById(id, auditDTO));
     }
-
 }

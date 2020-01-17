@@ -14,28 +14,28 @@ server:
 #
 ############################################################
 spring:
-  application:
-    name: contain-centre
-  datasource: # 数据源的相关配置
-    type: com.zaxxer.hikari.HikariDataSource            # 数据源类型：HikariCP
-    driver-class-name: com.mysql.jdbc.Driver            # mysql驱动
-    url: jdbc:mysql://106.12.137.47:3306/content_center?useUnicode=true&characterEncoding=UTF-8&autoReconnect&useSSL=false
-    username: root
-    password: lyp19891117
-    hikari:
-      connection-timeout: 30000  # 等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQ
-      minimum-idle: 5                    # 最小连接数
-      maximum-pool-size: 20              # 最大连接数
-      auto-commit: true                  # 自动提交
-      idle-timeout: 600000               # 连接超时的最大时长（毫秒），超时则被释放（retired），默认:10分钟
-      pool-name: DateSourceHikariCP      # 连接池名字
-      max-lifetime: 1800000              # 连接的生命时长（毫秒），超时而且没被使用则被释放（retired），默认:30分钟
-      connection-test-query: SELECT 1
+#  datasource: # 数据源的相关配置
+#    type: com.zaxxer.hikari.HikariDataSource            # 数据源类型：HikariCP
+#    driver-class-name: com.mysql.jdbc.Driver            # mysql驱动
+#    url: jdbc:mysql://106.12.137.47:3306/content_center?useUnicode=true&characterEncoding=UTF-8&autoReconnect&useSSL=false
+#    username: root
+#    password: lyp19891117
+#    hikari:
+#      connection-timeout: 30000  # 等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQ
+#      minimum-idle: 5                    # 最小连接数
+#      maximum-pool-size: 20              # 最大连接数
+#      auto-commit: true                  # 自动提交
+#      idle-timeout: 600000               # 连接超时的最大时长（毫秒），超时则被释放（retired），默认:10分钟
+#      pool-name: DateSourceHikariCP      # 连接池名字
+#      max-lifetime: 1800000              # 连接的生命时长（毫秒），超时而且没被使用则被释放（retired），默认:30分钟
+#      connection-test-query: SELECT 1
   ############################################################
   #
   # 配置nacos服务配置中心
   #
   ############################################################
+  application:
+    name: contain-centre
   cloud:
     nacos:
       discovery:
@@ -60,6 +60,11 @@ spring:
 #            group: tx-user-info-stream-group
           #用来指定topic
           #destination: user-info-stream-topic
+  zipkin:
+    base-url: http://47.56.112.40:9411
+  sleuth:
+    sampler:
+      probability: 1.0
 # 这里注意如果启动类中加了扫包注解@MapperScan， 这里可不要下面这个配置
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
