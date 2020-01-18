@@ -27,6 +27,11 @@ spring:
           uri: lb://contain-centre
           predicates:
             - Path=/shares/**,/admin/**
+  zipkin:
+    base-url: http://47.56.112.40:9411
+  sleuth:
+    sampler:
+      probability: 1.0
 ############################################################
 #
 # 日志

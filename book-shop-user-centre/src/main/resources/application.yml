@@ -40,7 +40,12 @@ spring:
     nacos:
       discovery:
         server-addr: 47.56.112.40:8848         # 指定nacos server的地址
-
+  zipkin:
+    base-url: http://47.56.112.40:9411
+    discovery-client-enabled: false
+  sleuth:
+    sampler:
+      probability: 1.0
 # 这里注意如果启动类中加了扫包注解@MapperScan， 这里可不要下面这个配置
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
